@@ -1,0 +1,7 @@
+name = "proceed_bingo"
+main = "src/index.js"
+compatibility_date = "2022-11-29"
+node_compat = true
+
+[triggers]
+crons = [ "0,10,20,30,40,50 * * * *" ]
