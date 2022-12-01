@@ -1,0 +1,604 @@
+@import '../../../ultilities/variables';
+
+.wallet-connection-modal {
+  max-width: 574px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .content {
+    padding: 1rem 6rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+
+    & > * {
+      margin-top: 1rem;
+    }
+
+    h4 {
+      color: $primaryColor;
+      font-size: 18px;
+      font-weight: 600;
+      padding-bottom: 1rem;
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    .logo {
+      width: 5rem;
+      height: 5rem;
+      margin: 1.5rem 0;
+    }
+
+    button {
+      padding: 0.8rem 2.5rem;
+      font-size: 15px;
+      border-radius: $primaryBorderRadius;
+    }
+  }
+}
+
+.buy-ticket-modal {
+  .header {
+    background-color: $lightPrimaryColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0.7rem;
+    
+    h3, button {
+      color: $secondaryColor;
+      font-size: 16px;
+    }
+
+    h3 {
+      font-weight: 500;
+      margin-left: 0.3rem;
+    }
+
+    button {
+      padding: 0.3rem;
+      border-radius: 50%;
+      &:hover {
+        background-color: #fff;
+      }
+    }
+  }
+  .content {
+    padding: 1rem;
+
+    .price-table {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      .row {
+        display: flex;
+        justify-content: space-between;
+
+        &:nth-child(2) {
+          margin: 1rem 0;
+        }
+      
+        .item {
+          button {
+            text-align: center;
+            width: 80px;
+            padding: 8px 16px;
+            background-color: #F2F2F2;
+            border-radius: $secondaryBorderRadius;
+            font-size: 15px;
+          }
+
+          &:nth-child(2) {
+            margin: 0 1rem;
+          }
+        }
+      }
+    }
+
+    .balance {
+      margin-top: 1.5rem;
+      
+      p {
+        margin-top: 0.8rem;
+        font-size: 14px;
+      }
+
+      .alert {
+        color: $alertTextColor;
+      }
+
+      .info {
+        color: $secondaryColor;
+      }
+    }
+
+    .approve {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+
+      button {
+        width: 100%;
+        padding: 16px 0;
+        border-radius: $primaryBorderRadius;
+        margin-top: 1rem;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.bought-tickets-modal {
+  min-width: 300px;
+  .header {
+    background-color: $primaryColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0.7rem;
+
+    
+    h3, button {
+      color: $secondaryColor;
+      font-size: 16px;
+    }
+
+    h3 {
+      font-weight: 500;
+      margin-left: 0.3rem;
+    }
+
+    button {
+      padding: 0.3rem;
+      border-radius: 50%;
+      &:hover {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .content {
+    padding: 1rem;
+
+    h4 {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .ticket-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      
+      .ticket {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      h5 {
+        font-weight: 300;
+        font-size: 15px;
+      }
+
+      .ticket-number {
+        display: flex;
+        padding: 0.5rem 1rem;
+        margin-left: 2rem;
+        border-radius: 20px;
+        background-color: $primaryColor;
+
+        p {
+          font-weight: 300;
+          width: 40px;
+          text-align: center;
+          font-size: 15px;
+          color: $primaryTextColor;
+        }
+      }
+    }
+
+    .buy-ticket-btn {
+      margin: 2rem 0 0.5rem;
+      width: 100%;
+      border-radius: $secondaryBorderRadius;
+      background-image: $gradientColor;
+      opacity: 0.9;
+      transition: $transition;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      a {
+        text-align: center;
+        padding: 1rem 2rem;
+        display: block;
+        color: $primaryTextColor;
+      }
+    }
+  }
+}
+
+.round-history-modal {
+  max-width: 564px;
+  width: 100%;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: $borderBottom;
+
+    button {
+      padding: 0.5rem;
+      border-radius: 50%;
+      color: $primaryColor;
+      margin-right: 0.5rem;
+
+      &:hover {
+        background-color: $lightPrimaryColor;
+      }
+    }
+
+    input[type=text] {
+      width: 50px;
+      height: 25px;
+      border: 1px solid $lightPrimaryColor;
+      box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.15);
+      border-radius: $secondaryBorderRadius;
+      text-align: center;
+      margin-left: 0.5rem;
+      font-size: 15px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-left: 1.5rem;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .header-input {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    
+    .winning-number {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+
+      span {
+        margin-left: 3rem;
+      }
+    }
+
+    .user-ticket {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      .details-wrap {
+        margin: 1rem;
+
+        .details {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 2rem;
+
+          h5, p {
+            color: $primaryColor;
+            font-size: 15px;
+            font-weight: 500;
+          }
+
+          .number-list {
+            display: flex;
+            flex-direction: column;
+
+            .number {
+              display: flex;
+              justify-content: flex-end;
+              margin-top: 1rem;
+
+              &:first-child {
+                margin-top: 0;
+              }
+
+              p {
+                font-weight: 300;
+                width: 32px;
+                height: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 1rem;
+                background-color: $lightPrimaryColor;
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .claim-prize {
+    display: flex;
+    margin: 1rem;
+    flex: 1;
+
+    button {
+      flex: 1;
+      background-image: $gradientColor;
+      color: $primaryTextColor;
+      padding: 1rem 3rem;
+      border-radius: $primaryBorderRadius;
+      text-align: center;
+    }
+  }
+}
+
+.modal-content {
+  overflow: hidden;
+  border-radius: $primaryBorderRadius;
+  background-color: #fff;
+  position: relative;
+  z-index: 999;
+  animation: modalSlideUp 600ms ease;
+  margin-top: 80px;
+
+  .content {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+.nav-mobile-modal {
+  display: none;
+  position: relative;
+  animation: modalSlideRight 600ms ease;
+}
+
+.custom-margin {
+  margin-top: 1rem !important;
+}
+
+@keyframes modalSlideUp {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideRight {
+  from {
+    left: -100px;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .wallet-connection-modal {
+    width: 90%;
+  
+    .content {
+      padding: 16px 32px 32px;
+  
+      & > * {
+        margin-top: 16px;
+      }
+  
+      h4 {
+        color: $primaryColor;
+        font-weight: 600;
+        padding-bottom: 16px;
+        font-size: 20px;
+      }
+      p {
+        font-size: 18px;
+      }
+
+      button {
+        padding: 14px 32px;
+        border-radius: $primaryBorderRadius;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .nav-mobile-modal {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    background-color: #fff;
+    margin-right: auto;
+    padding-top: 80px;
+
+    .item-wrap {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .item {
+        padding: 14px;
+        
+        * {
+          font-size: 24px;
+          color: $lightPrimaryColor;
+        }
+  
+        &.active > * {
+          color: $secondaryColor;
+          font-weight: 600;
+          pointer-events: none;
+        }
+      }
+
+      .logo {
+        width: 150px;
+        margin: 20px 0;
+      }
+    }
+  }
+
+  .bought-tickets-modal {
+    min-width: 0;
+    width: 90%;
+
+    .header {
+      padding: 1rem 0.7rem;
+      
+      h3, button {
+        font-size: 18px;
+      }
+  
+      button {
+        padding: 0.5rem;
+      }
+    }
+  
+    .content {
+      h4 {
+        margin-top: 0.5rem;
+        font-size: 18px;
+      }
+  
+      .ticket-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        .ticket {
+          margin-top: 1.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+  
+        h5 {
+          font-weight: 300;
+          font-size: 18px;
+        }
+  
+        .ticket-number {
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .round-history-modal {
+    min-width: 0;
+    width: 90%;
+  
+    .header {
+  
+      button {
+        padding: 0.5rem;
+        border-radius: 50%;
+        color: $primaryColor;
+        &:hover {
+          background-color: $lightPrimaryColor;
+        }
+      }
+
+      input[type=text] {
+        width: 50px;
+        height: 28px;
+        font-size: 16px;
+      }
+      
+      p {
+        font-size: 15px;
+        margin-left: 0;
+        margin-top: 0.8rem;
+      }
+
+      .header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-left: 0.5rem;
+      }
+    }
+  
+    .content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      
+      .winning-number {
+        flex-direction: column;
+        justify-content: center;
+        
+        h4 {
+          font-size: 20px;
+        }
+  
+        span {
+          margin-left: 0;
+          margin-top: 2rem;
+        }
+      }
+  
+      .user-ticket {
+        margin-top: 3rem;
+
+        h4 {
+          font-size: 20px;
+        }
+
+        .details-wrap {
+          margin: 0 1rem 1rem;
+  
+          .details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+

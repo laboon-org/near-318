@@ -1,0 +1,249 @@
+@import '../../ultilities/variables';
+
+.buy-ticket-wrap {
+  max-width: 565px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 2rem;
+
+  .header {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .buy-content-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    flex: 1;
+
+    .buy-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-radius: $primaryBorderRadius;
+      overflow: hidden;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+      background-color: $firstScreenBgColor;
+
+      .upper-part {
+        padding: 1rem;
+        border-bottom: 1px solid $primaryColor;
+        background-color: $primaryColor;
+
+        .content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          & h4, p, span {
+            font-size: 0.938rem;
+          }
+  
+          .info {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            width: 70px;
+          }
+        }
+      }
+
+      .lower-part {
+        flex: 1;
+        padding: 0 2.5rem 2rem;
+
+        .choices {
+          width: 100%;
+          
+          .choice-numbers-wrap {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1.5rem;
+
+            .header {
+              display: flex;
+              align-items: center;
+
+              h4 {
+                font-size: 0.938rem;
+                font-weight: 500;
+              }
+
+              .seperation {
+                height: 14px;
+                margin: 0 0.8rem;
+                border-left: 1px solid #000;
+              }
+            }
+
+            .choice-numbers {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+              min-height: 60px;
+              height: 100%;
+              background-color: $lightSecondaryColor;
+              margin-top: 0.5rem;
+              border-radius: $secondaryBorderRadius;
+
+              .number {
+                flex: 1;
+                min-height: 60px;
+                margin: 0.1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-width: calc(100% / 6 - 0.2rem);
+                height: 100%;
+
+                &:nth-child(even) {
+                  background-image: $gradientColor;
+                  border-radius: $secondaryBorderRadius;
+                }
+
+                .row {
+                  display: flex;
+                  align-items: center;
+                }
+
+                p {
+                  min-width: 1.563rem;
+                  min-height: 1.563rem;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 50%;
+                  border: 1px solid $lightPrimaryColor;
+                  background-color: #fff;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  user-select: none;
+                
+                  &:nth-child(2) {
+                    margin-left: 0.2rem;
+                  }
+                }
+              }
+
+              &.triple {
+                .number {
+                  min-width: calc(100% / 7 - 0.2rem);
+
+                  p {
+                    min-width: 1.2rem;
+                    min-height: 1.2rem;
+                    font-size: 0.7rem;
+                  }
+                }
+
+                .optional {
+                  p {
+                    position: relative;
+                    span {
+                      position: absolute;
+                      font-size: 0.9rem;
+                      top: 3px;
+                    }
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+
+        .confirmation {
+          width: 100%;
+          margin-top: 2rem;
+          display: flex;
+          justify-content: center;
+
+          button {
+            padding: 0.8rem 5rem;
+            border-radius: $secondaryBorderRadius;
+            margin: 0 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .buy-ticket-wrap {
+    width: 90%;
+    margin: 3rem 0;
+  
+    .header {
+      h2 {
+        font-size: 1.75rem;
+      }
+    }
+  
+    .buy-content-wrap {
+      .buy-content {   
+        .lower-part {
+          flex: 1;
+          padding: 0 1.2rem 2rem;
+  
+          .choices {            
+            .choice-numbers-wrap {
+              .header {
+                h4 {
+                  font-size: 0.75rem;
+                }
+              }
+  
+              .choice-numbers {
+                min-height: 3.125rem;
+
+                .number {
+                  min-height: 3.125rem;
+                  p {
+                    min-width: 1.3rem;
+                    min-height: 1.3rem;
+                    align-items: center;
+                    border-radius: 0;
+                    border: none;
+                    background-color: transparent;
+                    font-size: 0.8rem;
+                  }
+                }
+  
+                &.triple {
+                  .number {
+                    p {
+                      min-width: 1.1rem;
+                      min-height: 1.1rem;
+                      font-size: 0.7rem;
+                    }
+                  }               
+                }
+              }
+            }
+          }
+  
+          .confirmation {
+            button {
+              padding: 0.5rem 2rem;
+              flex: 1;
+              margin: 0;
+
+              &:last-child {
+                margin-left: 0.6rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

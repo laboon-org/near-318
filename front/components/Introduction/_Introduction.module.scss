@@ -1,0 +1,318 @@
+@import '../../ultilities/variables';
+
+.intro-wrap {
+  max-width: 565px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+
+  .header {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .timer {
+    display: flex;
+    margin-top: 2rem;
+    user-select: none;
+
+    .timer-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    
+      p {
+        min-width: 60px;
+        font-size: 1.875rem;
+        font-weight: 700;
+        padding: 0.6rem 0.5rem;
+        text-align: center;
+        color: $primaryTextColor;
+        background-image: $gradientColor;
+        border-radius: $primaryBorderRadius;
+      }
+
+      small {
+        font-size: 0.938rem;
+        font-weight: 600;
+        color: $tertiaryColor;
+        margin-top: 0.25rem;
+      }
+    }
+
+    .timer-seperation {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0.6rem 0.8rem 0;
+      color: $secondaryColor;
+    }
+  }
+
+  .next-draw {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    flex: 1;
+
+    .draw-header {
+      text-align: center;
+
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 500;
+      }
+    }
+
+    .draw-content {
+      flex: 1;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      border-radius: $primaryBorderRadius;
+      overflow: hidden;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+      background-color: $firstScreenBgColor;
+
+
+      .upper-part {
+        padding: 1.2rem;
+        border-bottom: 1px solid $lightPrimaryColor;
+
+        .content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          & h4, p, span {
+            font-size: 0.938rem;
+          }
+
+          .header {
+            margin-right: 1rem;
+  
+            h4 {
+              font-weight: 600;
+            }
+          }
+  
+          .info {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            white-space: nowrap;
+            
+            & > div {
+              display: flex;
+              align-items: center;
+            }
+  
+            p {
+              color: $secondaryColor;
+            }
+  
+            span {
+              margin-left: 0.3rem;
+            }
+  
+            .seperation {
+              height: 1.25rem;
+              margin: 0 0.8rem;
+              border-left: 1px solid $secondaryColor;
+            }
+          }
+        }
+      }
+
+      .lower-part {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+
+        .ticket-info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          p {
+            font-weight: 300;
+            span {
+              font-size: 1.25rem;
+              font-weight: 500;
+            }
+          }
+
+          button {
+            margin-top: 0.7rem;
+            color: $secondaryColor;
+
+            small {
+              transition: $transition;
+              &:hover {
+                text-shadow: -.25px -.25px 0 $secondaryColor, .25px .25px $secondaryColor;
+              }
+            }
+          }
+        }
+
+        .buy-ticket-btn {
+          margin: 1rem;
+          border-radius: $secondaryBorderRadius;
+          background-image: $gradientColor;
+          opacity: 0.9;
+          transition: $transition;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          a {
+            padding: 0.625rem 3rem;
+            display: block;
+            color: $primaryTextColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .intro-wrap {
+    width: 90%;
+    margin: 3.75rem 0 3rem;
+  
+    .header {
+      h2 {
+        font-size: 1.75rem;
+      }
+    }
+  
+    .timer {
+      margin-top: 2rem;
+  
+      .timer-item {
+        p {
+          font-size: 1.5rem;
+          padding: 1rem 0.875rem;
+        }
+  
+        small {
+          font-size: 1.125rem;
+          margin-top: 6px;
+        }
+      }
+  
+      .timer-seperation {
+        font-size: 1.75rem;
+        margin: 12px 0.875rem;
+      }
+    }
+  
+    .next-draw {
+      .draw-header { 
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 500;
+        }
+      }
+  
+      .draw-content {
+        .upper-part {
+          padding: 1.5rem;
+  
+          .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+  
+            .header {
+              margin-right: 0;
+    
+              h4 {
+                font-size: 1.25rem;
+              }
+            }
+    
+            .info {
+              margin-top: 1rem;
+              margin-left: 0;
+
+              p, span {
+                font-size: 1.125rem;
+              }
+              p {
+                font-size: 1.125rem;
+              }
+    
+              span {
+                font-size: 1rem;
+                margin-left: 0.3rem;
+              }
+            }
+          }
+        }
+  
+        .lower-part {
+          .ticket-info {
+            p {
+              font-size: 1.25rem;
+              span {
+                font-size: 1.5rem;
+              }
+            }
+
+            button {
+              margin-top: 1rem;
+              small {
+                font-size: 1.2rem;
+              }
+            }
+          }
+  
+          .buy-ticket-btn {
+            margin: 1.5rem;
+  
+            a {
+              padding: 0.9rem 4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .intro-wrap {
+    .next-draw {
+      .draw-content {
+        .upper-part {
+          .content {
+            .info {
+              margin-top: 1rem;
+              margin-left: 0;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+              line-height: 24px;
+
+              .seperation {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

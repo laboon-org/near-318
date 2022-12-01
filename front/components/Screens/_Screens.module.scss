@@ -1,0 +1,85 @@
+@import '../../ultilities/variables';
+
+$firstMinHeight: 32.5rem;
+$secondMinHeight: 39.25rem;
+$thirdMinHeight: 26.25rem;
+
+.first-screen {
+  flex: 1;
+  position: relative;
+  min-height: $firstMinHeight;
+  height: 100%;
+  background-color: $firstScreenBgColor;
+  overflow: hidden;
+  align-items: center;
+  padding-top: 80px;
+
+  .background {
+    position: absolute;
+    z-index: 0;
+
+    &.left {
+      left: 0;
+      bottom: -5px;
+      width: 584px;
+      height: auto;
+    }
+
+    &.right {
+      top: 80px;
+      right: 0;
+      width: 1100px;
+      height: auto;
+    }
+  }
+  .content {
+    min-height: $firstMinHeight;
+    height: 100%;
+  }
+}
+
+.second-screen {
+  min-height: $secondMinHeight;
+  background-color: $secondScreenBgColor;
+  position: relative;
+  overflow: hidden;
+
+  .second-screen-bg {
+    position: absolute;
+    z-index: 0;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    height: $secondMinHeight;
+  }
+
+  .content {
+    min-height: $secondMinHeight;
+    height: 100%;
+  }
+}
+
+.third-screen {
+  min-height: $thirdMinHeight;
+  background-color: $thirdScreenBgColor;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  z-index: 1;
+}
+
+@media screen and (max-width: 750px) {
+  .first-screen {
+    .background {
+      &.left {
+        width: 300px;
+      }
+  
+      &.right {
+        width: 450px;
+      }
+    }
+  }
+}

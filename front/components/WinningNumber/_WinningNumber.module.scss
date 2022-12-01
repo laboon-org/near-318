@@ -1,0 +1,37 @@
+.bingo-wrap {
+  display: flex;
+
+  .bingo-ball {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+
+    &:nth-child(2) {
+      margin: 0 1rem;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .number {
+      z-index: 2;
+      
+      p {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-shadow: -1px -1px 1.2px #FFF, 1px -1px 1.2px #FFF, -1px 1px 1.2px #FFF, 1px 1px 1.2px #FFF;
+
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+@import '../ultilities/variables';
+
+* {
+  font-family: 'Rubik', sans-serif;
+  margin: 0; 
+  border: 0;
+  padding: 0;
+  outline: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+html {
+  font-size: 16px;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+button {
+  background-color: transparent;
+  user-select: none;
+  opacity: 0.9;
+  transition: $transition;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layout {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.primary-btn {
+  background-image: $gradientColor;
+  color: $primaryTextColor;
+}
+
+.secondary-btn {
+  background-color: #fff;
+  color: $primaryColor;
+}
+
+.tertiary-btn {
+  background-color: #fff;
+  color: $secondaryColor;
+  border: 2px solid $secondaryColor;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5 !important;
+}
+
+.check-mark-container {
+  pointer-events: none;
+  cursor: not-allowed;
+  position: relative;
+  z-index: 3;
+}
+
+.loading-container {
+  position: relative;
+  z-index: 3;
+}
+
+.highlight {
+  text-shadow: 
+    -1.8px -1.8px 1.2px #FFF,
+    1.8px -1.8px 1.2px #FFF, 
+    -1.8px 1.8px 1.2px #FFF, 
+    1.8px 1.8px 1.2px #FFF;
+}
+
+.content-header {
+  font-weight: 700;
+  color: $secondaryColor;
+  text-align: center;
+}
+
+@media screen and (min-width: 801px) and (max-width: 850px)  {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 751px) and (max-width: 800px)  {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 374px)  {
+  html {
+    font-size: 14px;
+  }
+}

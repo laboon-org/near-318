@@ -1,0 +1,31 @@
+@import '../../ultilities/variables';
+
+.mark {
+  position: absolute;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.check-mark {
+  top: 0.188rem;
+  left: 0.188rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 2px;
+}
+
+.bought-mark {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%) rotate(40deg);
+  padding: 2px 4px;
+  background-color: #fff;
+  border: 1px solid $secondaryColor;
+  border-radius: $primaryBorderRadius;
+
+  p {
+    color: $secondaryColor;
+    font-size: 0.625rem;
+    border: none !important;
+  }
+}

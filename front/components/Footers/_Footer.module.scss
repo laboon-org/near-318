@@ -1,0 +1,129 @@
+@import '../../ultilities/variables';
+
+.main-footer-wrap {
+  background-color: $primaryColor;
+  min-height: 268px;
+
+  .container {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .logo {
+      width: 200px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.25rem;
+
+      .network-info {
+        margin: 0.8rem 0.625rem;
+
+        .network-logo {
+          width: 36px;
+        }
+
+        p {
+          font-size: 1rem;
+          color: $primaryTextColor;
+          font-weight: 300;
+          font-size: 1.1rem;
+        }
+
+        button {
+          padding: 0.8rem 1.2rem;
+          border-radius: $primaryBorderRadius;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+
+          small {
+            font-size: 1.1rem;
+          }
+
+          i {
+            margin-left: 0.5rem;
+          }
+        }
+      }
+    }
+    .laboon {
+      .laboon-info {
+        display: flex;
+
+        small {
+          color: $primaryTextColor;
+          font-weight: 300;
+          margin-left: 1rem;
+          font-size: 12px;
+        }
+      }
+
+      .laboon-logo {
+        width: 80px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .main-footer-wrap {
+    .container {
+      margin: 2rem 0;
+  
+      .logo {
+        width: 180px;
+      }
+  
+      .item {
+        margin-top: 1.25rem;
+  
+        .network-info {
+          margin: 1rem 0.625rem;
+
+          .network-logo {
+            width: 40px;
+          }
+  
+          p {
+            font-size: 1.3rem;
+          }
+  
+          button {
+            margin-left: 1rem;
+            padding: 1rem 1.5rem;
+            
+            small {
+              font-size: 1.3rem;
+            }
+  
+            i {
+              margin-left: 0.5rem;
+            }
+          }
+        }
+      }
+      .laboon {
+        flex-direction: column;
+
+        .laboon-info {
+          margin-top: 1rem;
+          flex-direction: column;
+          
+          small {
+            font-size: 14px;
+          }
+        }
+
+        .laboon-logo {
+          width: 84px;
+        }
+      }
+    }
+  }
+}
