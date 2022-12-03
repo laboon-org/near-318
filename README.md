@@ -14,10 +14,16 @@
 
 - Name: Near-318
 - Description: Bring FUNd to you with a LOT from Bingo 318
+- MVP Link: https://near-318.vercel.app/
 
-#### Video Presentation
+#### A1 - Video Presentation
 
 - Link: https://youtu.be/dST2zzni_T0
+
+#### A2 - User Manual
+
+- Soon
+
 ### B. Inspiration
 
 - Ideally, the lottery must be clear and transparent.
