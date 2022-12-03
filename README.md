@@ -22,7 +22,41 @@
 
 #### A2 - User Manual
 
-- Soon
+##### Guidance
+
+- Roles
+
+> Player: Participants buy lottery tickets.
+
+##### Features
+
+- Wallet Connecting:
+
+> 1. On the Header, click the "Connect wallet" button.
+> 2. Select "Connect with NEAR"
+> 3. Select the wallet you want to connect to in the list, below the words "Connect your wallet".
+> 4. Select the wallet account you want to connect or create a new one.
+> 5. The text on the "Connect wallet" button will change to the name of the logged in wallet account.
+
+- Buy Tickets:
+
+> 1. Go to the "Buy Ticket" section on the Header (or press the "Buy Ticket" button on the homepage).
+> 2. Pick up the number you want and click the "Order" button.
+> 3. Click the "Approve NEAR" button to confirm the money amount of the wallet will be deduced.
+> 4. Select the amount you want to bet (smaller than the available amount).
+> 5. Click the "Agree" button.
+> 6. Sign the transaction and wait for the result.
+> 7. In success, the app will redirect to the homepage, and under the "NEXT DRAW" section will display the number of tickets purchased.
+
+- Notice: The time limit for purchasing a ticket per round is less than 1 minute.
+
+- Result validating and get rewards:
+
+> 1. On the homepage, at the "Winning Numbers" section, switch to the "Your History" tab.
+> 2. A list of rounds participated with the number of winning tickets will be displayed.
+> 3. Press the ">" arrow button to open the details of a joined match.
+> 4. If the player has a winning number, click the "Request Prize" button to claim the reward.
+> 5. In success, the "Request Prize" button will change to "Claimed".
 
 ### B. Inspiration
 
