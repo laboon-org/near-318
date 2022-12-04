@@ -45,7 +45,7 @@
 
 .buy-ticket-modal {
   .header {
-    background-color: $lightPrimaryColor;
+    background-color: $primaryColor;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,10 +80,8 @@
       .row {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
 
-        &:nth-child(2) {
-          margin: 1rem 0;
-        }
       
         .item {
           button {
@@ -93,6 +91,7 @@
             background-color: #F2F2F2;
             border-radius: $secondaryBorderRadius;
             font-size: 15px;
+            
           }
 
           &:nth-child(2) {
@@ -103,10 +102,8 @@
     }
 
     .balance {
-      margin-top: 1.5rem;
-      
       p {
-        margin-top: 0.8rem;
+        margin-top: 0.6rem;
         font-size: 14px;
       }
 
@@ -229,6 +226,112 @@
   }
 }
 
+.wallet-info-modal {
+  .header {
+    background-color: $primaryColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0.7rem;
+    
+    h3, button {
+      color: $secondaryColor;
+      font-size: 16px;
+    }
+
+    h3 {
+      font-weight: 500;
+      margin-left: 0.3rem;
+    }
+
+    button {
+      padding: 0.3rem;
+      border-radius: 50%;
+      &:hover {
+        background-color: #fff;
+      }
+    }
+  }
+  .content {
+    padding: 1rem 1.2rem 2rem;
+
+    .address {
+      .address-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        button {
+          color: $secondaryColor;
+        }
+      }
+
+      .address-info {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #F2F2F2;
+        margin-top: 0.625rem;
+        border-radius: $secondaryBorderRadius;
+
+        input[type=text] {
+          font-size: 14px;
+          width: 100%;
+          white-space: no-wrap;
+          background-color: transparent;
+        }
+      }
+
+      .address-copy {
+        animation-name: fadeOut;
+        animation-duration: 2.8s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        p {
+          color: $secondaryColor;
+        }
+      }
+    }
+
+    .balance {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-weight: 600;
+        margin-top: 0.8rem;
+        font-size: 16px;
+        color: $primaryColor;
+
+        &:last-child {
+          margin-left: 1rem;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .approve {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+
+      button {
+        width: 100%;
+        padding: 1rem 5rem;
+        border-radius: $primaryBorderRadius;
+        margin-top: 1rem;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+
 .round-history-modal {
   max-width: 564px;
   width: 100%;
@@ -312,7 +415,7 @@
           margin-top: 2rem;
 
           h5, p {
-            color: $primaryColor;
+            color: $secondaryColor;
             font-size: 15px;
             font-weight: 500;
           }
@@ -408,6 +511,36 @@
   to {
     left: 0;
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  20% {
+    height: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    opacity: 1;
+  }
+
+  60% {
+    height: 15px;
+    opacity: 1;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  100% {
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 

@@ -8,6 +8,7 @@ import ICON_NETWORK from '../../assets/icons/network-icon.svg'
 import {FiArrowRight} from 'react-icons/fi'
 import { useRatioStore } from '../../providers/RootStoreProvider'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 
 const MainFooter = observer(() => {
   const ratioStore = useRatioStore();
@@ -35,7 +36,11 @@ const MainFooter = observer(() => {
         </div>
         <div className={`${styles['item']} ${styles['laboon']}`}>
           <div className={`${styles['laboon-info']} ${styles['laboon-logo']}`}>
-            <Image src={IMG_LABOON_LOGO} alt="Laboon" objectFit='contain'/>
+            <Link href="https://laboon.org/">
+              <a target='_blank'>
+                <Image src={IMG_LABOON_LOGO} alt="Laboon" objectFit='contain'/>
+              </a>
+            </Link>
           </div>
           <div className={`${styles['laboon-info']}`}>
             <small>Designed by Laboon Innovation Technology.</small>

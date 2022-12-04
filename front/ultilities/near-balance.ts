@@ -26,10 +26,11 @@ const getConfigTestnet = (myKeyStore: keyStores.BrowserLocalStorageKeyStore) => 
 
 // Check if balance is integer or float
 export const checkBalanceNear = (balance: string): string => {
-  if (Number.isInteger(Number(balance))) {
-    return balance;
+  let fixedBalance = balance.replace(',', '');
+  if (Number.isInteger(Number(fixedBalance))) {
+    return fixedBalance;
   } else {
-    return Number(balance).toFixed(4);
+    return Number(fixedBalance).toFixed(4);
   }
 }
 
@@ -57,5 +58,6 @@ export const getAccountBalance = async(accountId: string) => {
 }
 
 export const convertYoctoToNear = (yocto: string) => {
+  console.log(yocto);
   return checkBalanceNear(utils.format.formatNearAmount(yocto));
 }

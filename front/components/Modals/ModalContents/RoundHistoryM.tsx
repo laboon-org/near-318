@@ -67,7 +67,7 @@ const RoundHistoryM = observer(({setToggleModal, winner, loading, handleClaimPri
                 {winner.winners[0].details.map((detail, index) => (
                   <div className={`${styles['number']}`} key={index}>
                     {detail.wonNumber.map((number, index) => (
-                      <p key={index}>{number}</p>
+                      <p key={index}>{number === 0 ? '*' : number}</p>
                     ))}
                   </div>
                 ))}

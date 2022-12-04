@@ -15,9 +15,9 @@ export class RatioStore {
     const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=NEAR&tsyms=USD');
     const ratios = await response.json();
     if (ratios) {
-      console.log(ratios);
+      // console.log(ratios);
       this.setRatio(Number(ratios.USD));
     }
-    else throw Error("Cannot get NEAR ratio!");
+    else throw Error("Cannot get NEAR price ratio!");
   }
 }

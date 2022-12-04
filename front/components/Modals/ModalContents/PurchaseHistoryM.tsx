@@ -52,7 +52,7 @@ export default function PurchaseHistoryM({setToggleModal, playerList}: Props) {
                 {playerList.players[0].tickets.map((ticket, index) => (
                   <div className={`${styles['number']}`} key={index}>
                     {ticket.chosenNumber.map((number, index) => (
-                      <p key={index}>{number}</p>
+                      <p key={index}>{number === 0 ? '*' : number}</p>
                     ))}
                   </div>
                 ))}

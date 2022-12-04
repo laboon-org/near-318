@@ -13,6 +13,7 @@ import { Contract, PlayerList } from '../../ultilities/near-interface';
 import { formatDateShort } from '../../ultilities/format-date';
 import ModalWrap from '../Modals/ModalWrap';
 import PurchaseHistoryM from '../Modals/ModalContents/PurchaseHistoryM';
+import LoadingSpin from '../Loading/LoadingSpin';
 
 export default function Dashboard() {
   const walletStore = useWalletStore();
@@ -20,6 +21,7 @@ export default function Dashboard() {
   const [playerList, setPlayerList] = useState<PlayerList[]>([])
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerList | undefined>();
   const [togglePurchaseModal, setTogglePurchaseModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getRoundDate = (round: number): string => {
     const targetRound = roundStore.rounds.find(item => item.round === round)
@@ -36,12 +38,14 @@ export default function Dashboard() {
 
   const loadPlayer = async() => {
     if (contractAddress && walletStore.accountId) {
+      setLoading(true);
       const contract = new Contract({contractId: contractAddress, walletToUse: walletStore})
       setPlayerList(
         await contract.getTicketsByPlayer({
           player: walletStore.accountId, 
         }
       ));
+      setLoading(false);
     }
   }
   
@@ -61,6 +65,9 @@ export default function Dashboard() {
         <ModalWrap setToggleModal={setTogglePurchaseModal}>
           <PurchaseHistoryM setToggleModal={setTogglePurchaseModal} playerList={selectedPlayer}/>
         </ModalWrap>
+      )}
+      {loading && (
+        <LoadingSpin hideContent={true}/>
       )}
       <div className={`${styles['header']} highlight`}>
         <h2 className='content-header'>TICKET PURCHASE HISTORY</h2>

@@ -13,6 +13,7 @@ import { observer } from 'mobx-react-lite';
 import { shortenWalletAddress } from '../../ultilities/shorten-wallet-address';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { usePageStore, useWalletStore } from '../../providers/RootStoreProvider';
+import WalletInfoM from '../Modals/ModalContents/WalletInfoM';
 
 const Navbar = observer(() => {
   const pageStore = usePageStore();
@@ -20,6 +21,7 @@ const Navbar = observer(() => {
   const [toggleWalletModal, setToggleWalletModal] = useState<boolean>(false);
   const [toggleNavMobileModal, setToggleNavMobileModal] = useState<boolean>(false);
   const [toggleWalletOptionMenu, setToggleWalletOptionMenu] = useState<boolean>(false);
+  const [toogleWalletInfoModal, setToogleWalletInfoModal] = useState<boolean>(false);
 
   const handleSignOut = (): void => {
     try {
@@ -43,8 +45,15 @@ const Navbar = observer(() => {
           <NavMobileM setToggleModal={setToggleNavMobileModal}/>
         </ModalWrap>
       }
+      {/* Wallet Option Menu */}
       {toggleWalletOptionMenu &&
         <ModalWrap setToggleModal={setToggleWalletOptionMenu}>
+        </ModalWrap>
+      }
+      {/* Wallet Info Modal */}
+      {toogleWalletInfoModal &&
+        <ModalWrap setToggleModal={setToogleWalletInfoModal}>
+          <WalletInfoM setToggleModal={setToogleWalletInfoModal}/>
         </ModalWrap>
       }
       <nav className={`${styles['container']}`}>
@@ -84,7 +93,7 @@ const Navbar = observer(() => {
         {/* Navbar right side */}
         <div className={`${styles['item-wrap']} ${styles['right']}`}>
           <div className={`${styles['item']}`}>
-            <button type='button'  className={`${styles['connect-btn']} secondary-btn`}>Near</button>
+            <button type='button'  className={`${styles['connect-btn']} secondary-btn`}>NEAR</button>
           </div>
           {walletStore.isSignedIn && walletStore.accountId
           ?
@@ -103,11 +112,15 @@ const Navbar = observer(() => {
               {toggleWalletOptionMenu && (
                 <div className={`${styles['wallet-menu']}`}>
                   <div className={`${styles['menu-item']} `}>
-                    <Link href='https://wallet.testnet.near.org/'>
-                      <a target='_blank' onClick={() => setToggleWalletOptionMenu(false)}>
-                        Wallet
-                      </a>
-                    </Link>
+                    <button 
+                      type='button'
+                      onClick={() => {
+                        setToggleWalletOptionMenu(false)
+                        setToogleWalletInfoModal(true);
+                      }}
+                    >
+                      Wallet
+                    </button>
                   </div>
                   <div className={`${styles['menu-item']} `}>
                     <Link href='/dashboard'>

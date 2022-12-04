@@ -10,6 +10,7 @@ import HistoryNotAvailable from './HistoryNotAvailable';
 import { Contract, WinnerList } from '../../ultilities/near-interface';
 import { contractAddress } from '../../ultilities/contract_address';
 import { formatDateShort } from '../../ultilities/format-date';
+import LoadingSpin from '../Loading/LoadingSpin';
 
 export default function HistoryUser() {
   const walletStore = useWalletStore();
@@ -18,12 +19,15 @@ export default function HistoryUser() {
   const [targetWinnerRound, setTargetWinnerRound] = useState<WinnerList>(winnerList[0])
   const [toggleHistoryModal, setToggleHistoryModal] = useState<boolean>(false);
   const [loadingClaimPrize, setLoadingClaimPrize] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getWinnerListByPlayer = async(): Promise<void> => {
+    setLoading(true);
     if (contractAddress && walletStore.accountId) {
       const contract = new Contract({contractId: contractAddress, walletToUse: walletStore});
       setWinnerList(await contract.getWinnersByPlayer({player: walletStore.accountId}));
     }
+    setLoading(false);
   }
 
   const getRoundDate = (round: number): string => {
@@ -34,15 +38,32 @@ export default function HistoryUser() {
     return '';
   }
 
+  const setBalance = async() => {
+    if (walletStore.isSignedIn && walletStore.accountId) {
+      try {
+        await walletStore.setUserBalance();
+      } catch (error) {
+        console.error('[Error] Get balance: ', error);
+      }
+      }
+  }
+
   const handleClaimPrize = async(round: number): Promise<void> => {
     if (walletStore.accountId && contractAddress) {
       setLoadingClaimPrize(true);
-      const contract = new Contract({contractId: contractAddress, walletToUse: walletStore});
-      const result = await contract.transferPrize({round});
-      console.log(result);
-      await getWinnerListByPlayer();
-      setLoadingClaimPrize(false);
+      try {
+        const contract = new Contract({contractId: contractAddress, walletToUse: walletStore});
+        const result = await contract.transferPrize({round});
+        console.log(result);
+        await getWinnerListByPlayer();
+      } catch(error) {
+        alert(error);
+      }
+      if (walletStore.accountBalance) {
+        await setBalance();
+      }
       setToggleHistoryModal(false);
+      setLoadingClaimPrize(false);
     }
   }
 
@@ -58,7 +79,7 @@ export default function HistoryUser() {
   }, [walletStore.isSignedIn, walletStore.accountId])
 
   return (
-    <div className={`${styles['history']} ${styles['history-user']}`}>
+    <div className={`${styles['history']} ${styles['history-user']} loading-container`}>
       {toggleHistoryModal &&
         <ModalWrap setToggleModal={setToggleHistoryModal}>
           <RoundHistoryM
@@ -69,6 +90,9 @@ export default function HistoryUser() {
           />
         </ModalWrap>
       }
+      {loading && (
+        <LoadingSpin hideContent={true}/>
+      )}
       <div className={`${styles['round-content']}`}>
         {walletStore.isSignedIn 
           ? (

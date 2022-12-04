@@ -134,7 +134,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 1rem;
+        margin: 1rem 0;
 
         .ticket-info {
           display: flex;
@@ -248,14 +248,10 @@
               margin-left: 0;
 
               p, span {
-                font-size: 1.125rem;
-              }
-              p {
-                font-size: 1.125rem;
+                font-size: 0.95rem;
               }
     
               span {
-                font-size: 1rem;
                 margin-left: 0.3rem;
               }
             }

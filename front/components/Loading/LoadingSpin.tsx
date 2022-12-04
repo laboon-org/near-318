@@ -5,9 +5,10 @@ import styles from './_Loading.module.scss';
 
 interface Props {
   message?: string;
+  hideContent?: boolean;
 }
 
-const LoadingSpin = ({message}: Props): JSX.Element => {
+const LoadingSpin = ({message, hideContent}: Props): JSX.Element => {
   const [mes, setMes] = useState<string>('');
   const [numberOfDots, setnumberOfDots] = useState<number>(1);
 
@@ -36,7 +37,7 @@ const LoadingSpin = ({message}: Props): JSX.Element => {
   }, [mes])
 
   return (
-    <div className={`${styles['loading-wrap']}`}>
+    <div className={`${styles['loading-wrap']} ${hideContent && styles['hide-content']}`}>
       <div className={`${styles['loading-spin-wrap']}`}>
         <div className={`${styles['loading-spin']}`} />
       </div>

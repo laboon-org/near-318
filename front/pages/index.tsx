@@ -23,7 +23,7 @@ const Home = observer(() => {
   return (
     <>
       <Head>
-        <title>Bingo - Home</title>
+        <title>Bingo 318 - Home</title>
       </Head>
       <main className={`main`}>
         <FirstScreen>

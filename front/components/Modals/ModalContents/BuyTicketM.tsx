@@ -18,13 +18,14 @@ interface Props {
   loadingBuyTicket: boolean;
 }
 
-const priceMultiList = [[10, 20, 50], [100, 200, 300], [500, 1000, 'All']];
+const priceMultiList = [[10, 20, 50], [100, 200, 300], [500, 1000, 1500], [2000, 3000, 5000]];
 
 const BuyTicketM = observer(({setToggleModal, handleBuyTicket, loadingBuyTicket}: Props) => {
   const walletStore = useWalletStore();
   const [selectedPrice, setSelectedPrice] = useState<number | string | undefined>();
   const [chosenPrice, setChosenPrice] = useState<number | undefined>()
   const [loading, setLoading] = useState<boolean>(false);
+
   const handleSelectPrice = (selectedPrice: number | string) => {
     setSelectedPrice(selectedPrice);
   }
@@ -36,12 +37,19 @@ const BuyTicketM = observer(({setToggleModal, handleBuyTicket, loadingBuyTicket}
     return true;
   }
 
+  // const checkAvailableBalance = (): boolean => {
+  //   if (selectedPrice === 'All' && chosenPrice && chosenPrice < 10) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
   // Buy Ticket
   const handleConfirms = async(): Promise<void> => {
     await handleBuyTicket(chosenPrice);
   }
   
-  const getBalance = async() => {
+  const setBalance = async() => {
     if (walletStore.isSignedIn && walletStore.accountId) {
       setLoading(true);
       try {
@@ -50,13 +58,13 @@ const BuyTicketM = observer(({setToggleModal, handleBuyTicket, loadingBuyTicket}
         console.error('[Error] Get balance: ', error);
       }
       setLoading(false);
-      }
+    }
   }
 
   useEffect(() => {
     if (selectedPrice) {
       if (selectedPrice === 'All') {
-        setChosenPrice(Number(walletStore.accountBalance) - 1);
+        setChosenPrice(Number(walletStore.accountBalance) - 0.1);
       }
       else {
         setChosenPrice(Number(selectedPrice))
@@ -103,6 +111,11 @@ const BuyTicketM = observer(({setToggleModal, handleBuyTicket, loadingBuyTicket}
               Insufficient NEAR balance
             </p>
           )}
+          {/* {!checkAvailableBalance() && (
+            <p className={`${styles['alert']}`}>
+              You need more than 10 NEAR to continue.
+          </p>
+          )} */}
           <p className={`${styles['info']}`}>
             {`Balance: ${walletStore.accountBalance ? walletStore.accountBalance : '0.000'}`} NEAR
           </p>
@@ -111,14 +124,20 @@ const BuyTicketM = observer(({setToggleModal, handleBuyTicket, loadingBuyTicket}
           <button 
             type='button' 
             className={`primary-btn ${walletStore.accountBalance && 'disabled'}`}
-            onClick={() => getBalance()}
+            onClick={() => setBalance()}
           >
             Approve NEAR
           </button>
           {walletStore.accountBalance && (
             <button 
               type='button' 
-              className={`tertiary-btn ${(!walletStore.accountBalance || !chosenPrice || !checkAvaialbePrice() ) && 'disabled' }`}
+              className={
+                `tertiary-btn 
+                ${
+                  (!walletStore.accountBalance || !chosenPrice || !checkAvaialbePrice()) 
+                  && 'disabled' 
+                }`
+              }
               onClick={async() => await handleConfirms()}
             >
               Agree

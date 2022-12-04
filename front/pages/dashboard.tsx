@@ -19,7 +19,7 @@ const Dashboard = observer(() => {
   return (
     <>
       <Head>
-        <title>Bingo - Dashboard</title>
+        <title>Bingo 318 - Dashboard</title>
       </Head>
       <main className={`main`}>
         <FirstScreen>

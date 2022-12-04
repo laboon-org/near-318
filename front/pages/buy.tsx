@@ -19,7 +19,7 @@ const Buy = observer(() => {
   return (
     <>
       <Head>
-        <title>Bingo - Buy Ticket</title>
+        <title>Bingo 318 - Buy Ticket</title>
       </Head>
       <main className={`main`}>
         <FirstScreen>

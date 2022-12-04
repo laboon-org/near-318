@@ -16,7 +16,7 @@ import { setupMyNearWallet } from '@near-wallet-selector/my-near-wallet';
 
 import {getAccountBalance} from '../ultilities/near-balance';
 
-const THIRTY_TGAS = '30000000000000';
+const TGAS = '300000000000000';
 const NO_DEPOSIT = '0';
 
 export interface InitialWalletProps  {
@@ -113,7 +113,7 @@ export class WalletStore {
       contractId, 
       method, 
       args = {}, 
-      gas = THIRTY_TGAS, 
+      gas = TGAS, 
       deposit = NO_DEPOSIT
     }: any) => {
 

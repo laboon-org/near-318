@@ -26,7 +26,7 @@ const WalletConnectionM = observer(() => {
       <div className={`${styles['content']}`}>
         <h4>Connect Wallet</h4>
         <p>
-          Start by connecting with Near wallet. 
+          Start by connecting with NEAR wallet. 
           Be sure to store your private keys or seed phrase securely.
           Never share them with anyone.
         </p>
@@ -38,7 +38,7 @@ const WalletConnectionM = observer(() => {
           className='primary-btn'
           onClick={() => handleSignInWallet()}
         >
-          Connect with Near
+          Connect with NEAR
         </button>
       </div>
     </div>

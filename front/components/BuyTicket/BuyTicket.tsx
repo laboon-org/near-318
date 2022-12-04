@@ -33,7 +33,6 @@ const BuyTicket = observer(() => {
 
   const checkSelectedNumber = (target: number[]): boolean => {
     return compareNumberArrays(chosenNumbers, target)
-    
   }
 
   const checkBoughtNumber = (target: number[]): boolean => {
@@ -102,7 +101,7 @@ const BuyTicket = observer(() => {
   const loadTicketList = async() => {
     if (contractAddress && walletStore.accountId && roundStore.rounds.length > 0) {
       const contract = new Contract({contractId: contractAddress, walletToUse: walletStore})
-      console.log('load ticket list');
+      // console.log('load ticket list');
       setPlayerList(
         await contract.getTicketsByPlayerAndRound({
           player: walletStore.accountId, 
@@ -130,10 +129,12 @@ const BuyTicket = observer(() => {
     }
     return () => {isMounted = false}
   }, [roundStore.rounds, walletStore.isSignedIn])
-  
+
   useEffect(() => {
-    console.log(chosenNumbers);
-  }, [chosenNumbers]);
+    if (!conditionStore.availableToBuyTicket && toggleBuyModal) {
+      setToggleBuyModal(false);
+    }
+  }, [conditionStore.availableToBuyTicket, toggleBuyModal])
 
   return (
     <article className={`${styles['buy-ticket-wrap']}`}>
@@ -268,7 +269,7 @@ const BuyTicket = observer(() => {
                 </div>
               </div>
             </div>
-            <div className={`${styles['confirmation']} ${chosenNumbers.length < 1 && 'disabled'}`}>
+            <div className={`${styles['confirmation']} ${(chosenNumbers.length < 1 || !conditionStore.availableToBuyTicket) && 'disabled'}`}>
               <button 
                 type='button' 
                 className={`tertiary-btn`}
@@ -278,7 +279,7 @@ const BuyTicket = observer(() => {
               </button>
               <button 
                 type='button'
-                className={`primary-btn ${chosenNumbers.length < 1 && 'disabled'}`}
+                className={`primary-btn ${(chosenNumbers.length < 1 || !conditionStore.availableToBuyTicket) && 'disabled'}`}
                 onClick={() => handleOrder()}
               >
                 Order

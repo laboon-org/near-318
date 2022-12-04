@@ -57,7 +57,8 @@ const Layout = observer(({children}: Props) => {
     setLoading(false);
   }
 
-  const timerCountdown = () => {
+  // Countdown time
+  const timerCountdown = (): boolean => {
     const remainingTime = new Date(roundStore.rounds[roundStore.rounds.length - 1].endTime).getTime() - new Date(Date.now()).getTime();
     if (remainingTime > 1000) {
       const seconds = Math.floor((remainingTime / 1000) % 60);
@@ -67,12 +68,15 @@ const Layout = observer(({children}: Props) => {
       if (timerStore.minutes !== fixedMinutes || timerStore.seconds !== fixedSeconds) {
         timerStore.setTimer({minutes: fixedMinutes, seconds: fixedSeconds})
       }
+      return true;
     }
     else {
       timerStore.setTimer({minutes: '00', seconds: '00'});
+      return false;
     }
   }
 
+  // Fetch a new round
   const fetchNewRound = async() => {
     const wallet = await viewOnlyWallet()
     const fetchResult = await roundStore.fetchAllRounds(contractAddress, wallet);
@@ -81,35 +85,43 @@ const Layout = observer(({children}: Props) => {
     }
   }
 
+  // Countdown time interval
   useEffect(() => {
     let interval: NodeJS.Timer | undefined;
     if (roundStore.rounds.length > 0) {
       interval = setInterval(() => {
-        timerCountdown();
+        const countdownAvailable = timerCountdown();
+        if (!countdownAvailable) { 
+          clearInterval(interval);
+        }
       }, 100)
     }
 
     return () => clearInterval(interval);
   }, [roundStore.rounds])
 
+  // Trigger methods base on timer.
   useEffect(() => {
     let interval: NodeJS.Timer | undefined;
+    
+    // In the last minute
     if (timerStore.minutes === '00') {
+      // Set condition to prevent user from buying more ticket
       if(conditionStore.availableToBuyTicket) {
         conditionStore.setAvailableToBuyTicket(false);
       }
+      // When time ran out, try to fetch new round
       if (timerStore.seconds === '00') {
         interval = setInterval(() => {
           fetchNewRound();
-        }, 1000)
+        }, 2000)
       }
     }
-    
 
     return () => clearInterval(interval);
   }, [timerStore.minutes, timerStore.seconds])
 
-
+  // Check user sign in
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -125,6 +137,7 @@ const Layout = observer(({children}: Props) => {
     return () => {isMounted = false};
   }, [])
 
+  // Load Round + Price Ratio
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -144,7 +157,7 @@ const Layout = observer(({children}: Props) => {
   return (
     <div className={`layout`}>
       <Head>
-        <meta name="description" content="Bingo B18" />
+        <meta name="description" content="Bingo 318" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
