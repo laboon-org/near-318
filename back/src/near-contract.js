@@ -1,7 +1,7 @@
 import * as nearAPI from "near-api-js";
 const {keyStores, KeyPair, connect, Contract} = nearAPI;
 
-const FIVE_TGAS = 75000000000000;
+const TGAS = 300000000000000;
 const NO_DEPOSIT = 0;
 const NO_ARGS = {};
 
@@ -36,7 +36,7 @@ const triggerContract = async() => {
     }
   );
 
-  const response = await contract.proceed_bingo(NO_ARGS, FIVE_TGAS, NO_DEPOSIT);
+  const response = await contract.proceed_bingo(NO_ARGS, TGAS, NO_DEPOSIT);
   console.log(response);
 }
 
