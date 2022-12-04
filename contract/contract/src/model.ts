@@ -33,12 +33,14 @@ export class Round {
   result: number[];
   startTime: Date;
   endTime: Date;
+  prizePot: string;
   
-  constructor({round, result, startTime, endTime}) {
+  constructor({round, result, startTime, endTime, prizePot}) {
     this.round = round;
     this.result = result;
     this.startTime = startTime;
     this.endTime = endTime;
+    this.prizePot = prizePot;
   }
 }
 

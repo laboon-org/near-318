@@ -6,13 +6,20 @@ import { PlayerStorage, Ticket, Round, WinnerStorage, Winner, Player, WinnerDeta
 const FIVE_TGAS = BigInt("50000000000000");
 const NO_DEPOSIT = BigInt(0);
 const NO_ARGS = bytes(JSON.stringify({}));
+const STORAGE_COST: bigint = BigInt("1000000000000000000000000");
+const YOC_TO_NEAR_RATIO = BigInt("1000000000000000000000000");
 
-function get_date(): Date {
+function get_current_date(): Date {
   const dateNano = near.blockTimestamp();
-  const dateMili = dateNano / BigInt(1000000);
-  const fixDate = new Date(Number(dateMili));
-  const date = new Date(fixDate.getFullYear(), fixDate.getMonth(), fixDate.getDay(), fixDate.getHours(), (fixDate.getMinutes() + (10 - (fixDate.getMinutes() % 10))), 0)
-  return date;
+  const dateMili = Number(dateNano / BigInt(1000000));
+  const currentDate = new Date(dateMili);
+  return currentDate;
+}
+
+function get_fixed_date(): Date {
+  const currentDate = get_current_date();
+  const fixedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), currentDate.getHours(), (currentDate.getMinutes() - (currentDate.getMinutes() % 10)), 0)
+  return fixedDate;
 }
 
 function check_duplicate_value(target: number[], val: number): number {
@@ -35,8 +42,9 @@ class Bingo {
     const firstRound: Round = new Round({
       round: 1,
       result: [],
-      startTime: get_date(),
-      endTime: new Date(get_date().getTime() + 10 * 60000),
+      startTime: get_fixed_date(),
+      endTime: new Date(get_fixed_date().getTime() + 10 * 60000),
+      prizePot: near.accountBalance().toString(),
     });
     this.rounds = [firstRound];
     this.playerStorage = [];
@@ -54,8 +62,9 @@ class Bingo {
     const firstRound: Round = new Round({
       round: 1,
       result: [],
-      startTime: get_date(),
-      endTime: new Date(get_date().getTime() + 10 * 60000),
+      startTime: get_fixed_date(),
+      endTime: new Date(get_fixed_date().getTime() + 10 * 60000),
+      prizePot: near.accountBalance().toString(),
     });
     this.rounds = [firstRound];
     near.log("Create first round");
@@ -78,41 +87,49 @@ class Bingo {
     this.set_first_round();
   }
 
-  @call({payableFunction: true}) // This method changes the state, for which it cost gas
-  add_ticket({ chosenNumber }: { chosenNumber: number[]}): string {
-    const currentPlayer: AccountId = near.predecessorAccountId();
-    const round = this.get_last_round().round;
-    const betAmount = near.attachedDeposit().toString();
-    const newTicket = new Ticket({chosenNumber, betAmount});
-    const roundInfo = this.playerStorage.find(item => item.round === round);
-    // Storage already have current round
-    if (roundInfo) {
-      const playerInfo = roundInfo.players.find(item => item.playerId === currentPlayer);
-      // Storage of current round already have caller
-      if (playerInfo) {
-        playerInfo.tickets = [...playerInfo.tickets, newTicket];
-      }
-      // Storage of current round doesnt have caller
-      else {
-        const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
-        roundInfo.players = [...roundInfo.players, newPlayer];
-      }
-    } 
-    // Storage doesnt have current round
-    else {
-      const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
-      const newStore: PlayerStorage = new PlayerStorage({round: round, players: [newPlayer]});
-      this.playerStorage = [...this.playerStorage, newStore]
-    }
-    return (`Saved: Ticket of ${currentPlayer} on round ${round}: ${chosenNumber}`);
+  @call({privateFunction: true})
+  remove_last_rounds() {
+    this.playerStorage.pop();
   }
 
+  @call({payableFunction: true}) // This method changes the state, for which it cost gas
+  add_ticket({ chosenNumber }: { chosenNumber: number[]}): string {
+    if (chosenNumber && chosenNumber.length > 0) {
+      const currentPlayer: AccountId = near.predecessorAccountId();
+      const round = this.get_last_round().round;
+      const betAmount = near.attachedDeposit().toString();
+      const newTicket = new Ticket({chosenNumber, betAmount});
+      const roundInfo = this.playerStorage.find(item => item.round === round);
+      // Storage already have current round
+      if (roundInfo) {
+        const playerInfo = roundInfo.players.find(item => item.playerId === currentPlayer);
+        // Storage of current round already have caller
+        if (playerInfo) {
+          playerInfo.tickets = [...playerInfo.tickets, newTicket];
+        }
+        // Storage of current round doesnt have caller
+        else {
+          const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
+          roundInfo.players = [...roundInfo.players, newPlayer];
+        }
+      } 
+      // Storage doesnt have current round
+      else {
+        const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
+        const newStore: PlayerStorage = new PlayerStorage({round: round, players: [newPlayer]});
+        this.playerStorage = [...this.playerStorage, newStore]
+      }
+      return (`Saved: Ticket of ${currentPlayer} on round ${round}: ${chosenNumber}`);
+    }
+    else throw Error(`Doesn't have chosen number!`);
+  }
 
   @call({privateFunction: true})
   generate_result() {
     const currentRound: Round = this.rounds[this.rounds.length - 1];
     const randomString = near.randomSeed();
     if (currentRound.result.length < 1) {
+      currentRound.prizePot = near.accountBalance().toString();
       for(let i = 0; i < 3; i++) {
         const randomNumber = (randomString.charCodeAt(i) % 6) + 1;
         near.log("Random number: ", randomNumber);
@@ -120,6 +137,7 @@ class Bingo {
       }
       return (`Set result of round #${currentRound.round}: ${currentRound.result}`);
     }
+    else return (`This round's result has been set!`)
   }
 
   @call({privateFunction: true})
@@ -210,18 +228,21 @@ class Bingo {
   @call({privateFunction: true})
   set_new_round() {
     const currentRound: Round = this.get_last_round();
+    const compareDate = new Date(get_current_date()).getTime() - new Date(currentRound.endTime).getTime();
+    const newDate = compareDate >= 5*60000 ? new Date(get_fixed_date()) : new Date(currentRound.endTime);
     const newRound: Round = new Round({
       round: currentRound.round + 1,
       result: [],
-      startTime: new Date(currentRound.endTime),
-      endTime: new Date(new Date(currentRound.endTime).getTime() + 10*60000),
+      startTime: newDate,
+      endTime: new Date(newDate.getTime() + 10*60000),
+      prizePot: near.accountBalance().toString(),
     })
 
     this.rounds = [...this.get_rounds(), newRound];
     return (`Create new round #${newRound.round}`);
   }
 
-  @call({})
+  @call({privateFunction: true})
   proceed_bingo() {
     const generateResult = this.generate_result();
     const setWinners = this.set_winners({round: this.get_last_round().round});
@@ -230,14 +251,36 @@ class Bingo {
   }
 
   @call({})
-  transfer_prize({player, round}: {player: AccountId, round: number}) {
+  transfer_prize({round}: {round: number}) {
+    const player: AccountId = near.predecessorAccountId();
     const targetWinner = this.get_winner_by_player_and_round({player, round});
-    if (targetWinner.length > 0) {
-      NearPromise.new(targetWinner[0].winners[0].winner).transfer(BigInt(targetWinner[0].winners[0].prizeSum));
-      targetWinner[0].winners[0].isTransfered = true;
-      return `Transfered prize to ${targetWinner[0].winners[0].winner}`
+    if (targetWinner.length > 0 && !targetWinner[0].winners[0].isTransfered) {
+      if (near.accountBalance() + STORAGE_COST <= BigInt(targetWinner[0].winners[0].prizeSum)) {
+        throw Error(`Not enough money to transfer!`)
+      }
+      else {
+        try {
+          const promise = near.promiseBatchCreate(targetWinner[0].winners[0].winner)
+          near.promiseBatchActionTransfer(promise, BigInt(targetWinner[0].winners[0].prizeSum))
+          targetWinner[0].winners[0].isTransfered = true;
+          return `Transfered ${targetWinner[0].winners[0].prizeSum} yoctoNear to ${targetWinner[0].winners[0].winner}`
+        } catch (error) {
+          throw Error(error);
+        }
+      }
     }
-    else return `${player} isn't a winner!`
+    else if (targetWinner.length <= 0 ) {
+      throw Error(`${player} isn't a winner!`);
+    }
+    else if (targetWinner[0].winners[0].isTransfered) {
+      throw Error(`${player} has claimed prize!`);
+    }
+    else throw Error(`Cannot transfer prize!`);
+  }
+
+  @view({})
+  get_contract_balance(): string {
+    return near.accountBalance().toString();
   }
 
   @view({})
@@ -304,6 +347,23 @@ class Bingo {
       }
     }
     return store;
+  }
+
+  @view({})
+  get_winner_by_player({player}: {player: AccountId, round: number}): WinnerStorage[] {
+    let store: WinnerStorage[] = [];
+    this.winnerStorage.forEach(item => {
+      const selectedPlayer = item.winners.find(winner => winner.winner === player);
+      if (selectedPlayer) {
+        store = [...store, {round: item.round, winners: [selectedPlayer]}]
+      }
+    })
+    return store;
+  }
+
+  @view({})
+  get_winner_by_round({round}: {round: number}): WinnerStorage[] {
+    return this.winnerStorage.filter(store => store.round === round);
   }
 
   @view({})
