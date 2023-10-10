@@ -13,12 +13,16 @@
 ### A. Project Description
 
 - Name: Near-318
-- Description: Bring FUNd to you with a LOT from Bingo 318
+- Description: Bring FUNd to you with a LOT from Bingo-318
 - MVP Link: https://near-318.vercel.app/
+
+#### Inspiration
+
+- Bingo-318: From Vietlot - https://vietlott.vn/en/choi/bingo/gioi-thieu-san-pham-bingo18
 
 #### A1 - Video Presentation
 
-- Link: https://youtu.be/dST2zzni_T0
+- (Q1-2023) Link: https://youtu.be/dST2zzni_T0
 
 #### A2 - User Manual
 
@@ -103,11 +107,13 @@
 
 ### H. What's next (Milestones)
 
-- Q1-2023: Extend to complete remaining modes of Bingo-18 to bring 38 types live, roll-out to mainnet.
-- Q2-2023: Support Cross-chain (eg: Chain-Link (VRF)) and multiple wallet.
-- Q3-2023: Support others lottery mode, 2-digits type as Keno.
-- Q4-2023: Support stable-coin, fiat currency and mobile applications.
-
-### I. Development Status
-
-- Source Repo: https://github.com/hieple7985/near-318
+- [x] Q1-2023: First Implementation of MVP (Bingo-18)
+- [ ] Q4-2023:
+-> Implement Near BOS
+-> Complete remaining modes of Bingo-18 to bring 38 types live, roll-out to mainnet.
+-> Support Cross-chain (eg: Chain-Link (VRF)) and multiple wallet.
+- [ ] Q1-2024:
+-> Support others lottery mode, 2-digits type as Keno.
+-> Publish mobile applications.
+- [ ] Q2-2024:
+-> Support stable-coin, fiat currency.
