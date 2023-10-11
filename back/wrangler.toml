@@ -1,6 +1,6 @@
-name = "proceed_bingo"
+name = "near_318_api"
 main = "src/index.js"
-compatibility_date = "2022-11-29"
+compatibility_date = "2023-10-11"
 node_compat = true
 
 [triggers]

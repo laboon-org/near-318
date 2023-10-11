@@ -1,9 +1,9 @@
 {
-  "name": "proceed_bingo",
+  "name": "near-318-api",
   "version": "1.0.0",
   "devDependencies": {
     "jest": "^29.3.1",
-    "wrangler": "2.4.4"
+    "wrangler": "^2.20.1"
   },
   "private": true,
   "scripts": {

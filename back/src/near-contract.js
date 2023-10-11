@@ -6,18 +6,16 @@ const NO_DEPOSIT = 0;
 const NO_ARGS = {};
 
 const contractAddress = "dev-1669276348138-46454457071538"
-
 const triggerContract = async() => {
   const myKeyStore = new keyStores.InMemoryKeyStore();
-  const PRIVATE_KEY =
-  "TaWBeLzFsUyR8rGJWTHvMSkn8PYx6kbDyeuxfSsAQUda4a2WtkVKBF3s1K2nSos7UBJfaNPK3P5JmM9MJHYhGEX";
+  const PRIVATE_KEY = "<PRIVATE_KEY>";
   const keyPair = KeyPair.fromString(PRIVATE_KEY);
   await myKeyStore.setKey("testnet", contractAddress, keyPair);
   console.log(myKeyStore);
 
   const connectionConfig = {
     networkId: "testnet",
-    keyStore: myKeyStore, 
+    keyStore: myKeyStore,
     nodeUrl: "https://rpc.testnet.near.org",
     walletUrl: "https://wallet.testnet.near.org",
     helperUrl: "https://helper.testnet.near.org",

@@ -1,27 +1,26 @@
-NEAR-318 API
-==================
+# NEAR-318: Backend
 
-- Cloud Functions w/ Cloudflare Workers
+- Simple Api by: Cloud Functions w/ Cloudflare Workers
+
+## Prerequisites
 
 
-Prequisites
-===========
-
+```sh
     node v16.18.1
     npm v8.19.2
+```
 
-Getting Start
-===========
+## Getting Start
 
 Step 1: Install dependencies
---------------------------------
+-------------------------------
 
 Install all required dependencies by running:
 
     npm install
 
 Step 2: Install the Workers CLI
---------------------------------
+-------------------------------
 
 To install wrangler, ensure you have npm installed. Then run:
 
@@ -46,11 +45,11 @@ Step 4: Run a local development server
 -------------------------------
 To start a development server, run:
 
-    wrangler dev --local 
-    
+    wrangler dev --local
+
 Then run:
 
-    curl "http://localhost:8787/cdn-cgi/mf/scheduled" 
+    curl "http://localhost:8787/cdn-cgi/mf/scheduled"
 
 to trigger the scheduled event.\
 Go back to the console to see what your worker has logged.\
