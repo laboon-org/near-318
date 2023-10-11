@@ -2,6 +2,7 @@ name = "near_318_api"
 main = "src/index.js"
 compatibility_date = "2023-10-11"
 node_compat = true
+send_metrics = true
 
 [triggers]
 crons = [ "0,10,20,30,40,50 * * * *" ]
