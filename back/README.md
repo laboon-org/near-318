@@ -73,5 +73,5 @@ You can preview your Worker at <YOUR_WORKER>.<YOUR_SUBDOMAIN>.workers.dev.
 
 ### Testnet
 
-Link: https://near-318-api.workers.dev/
+Link: https://test-v1.near-318-api.workers.dev/
 Admin: https://dash.cloudflare.com/235547dc36388aaba89a83cf4149e8b7/workers/subdomain

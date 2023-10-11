@@ -1,6 +1,6 @@
-name = "near_318_api"
+name = "test-v1"
 main = "src/index.js"
-compatibility_date = "2023-10-11"
+compatibility_date = "2023-10-02"
 node_compat = true
 send_metrics = true
 
