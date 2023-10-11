@@ -1,14 +1,16 @@
 import * as nearAPI from "near-api-js";
+import "dotenv/config";
+
 const {keyStores, KeyPair, connect, Contract} = nearAPI;
 
 const TGAS = 300000000000000;
 const NO_DEPOSIT = 0;
 const NO_ARGS = {};
 
-const contractAddress = "<CONTRACT_ADDRESS>"
+const contractAddress = process.env.CONTRACT_ADDRESS;
 const triggerContract = async() => {
   const myKeyStore = new keyStores.InMemoryKeyStore();
-  const PRIVATE_KEY = "<PRIVATE_KEY>";
+  const { PRIVATE_KEY } = process.env;
   const keyPair = KeyPair.fromString(PRIVATE_KEY);
   await myKeyStore.setKey("testnet", contractAddress, keyPair);
   // console.log(myKeyStore);

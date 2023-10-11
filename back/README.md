@@ -12,21 +12,21 @@
 
 ## Getting Start
 
+Step 0: Pre-Config
+-------------------------------
+PRIVATE_KEY: Define Soon!
+
 Step 1: Install dependencies
 -------------------------------
 
 Install all required dependencies by running:
 
-    npm install
+    yarn install
 
 Step 2: Install the Workers CLI
 -------------------------------
 
 To install wrangler, ensure you have npm installed. Then run:
-
-    npm install -g wrangler
-
-or install with yarn:
 
     yarn global add wrangler
 
@@ -41,7 +41,9 @@ You will be directed to a web page asking you to log in to the Cloudflare dashbo
 After you have logged in, you will be asked if Wrangler can make changes to your Cloudflare account.\
 Scroll down and select Allow to continue.
 
-Step 4: Run a local development server
+Primary Account: letronghiep1985@gmail.com
+
+Step 4: Run a local development
 -------------------------------
 To start a development server, run:
 
@@ -49,17 +51,27 @@ To start a development server, run:
 
 Then run:
 
-    curl "http://localhost:8787/cdn-cgi/mf/scheduled"
+    curl "http://127.0.0.1:8787/cdn-cgi/mf/scheduled"
+
+Webview:
+    curl "http://192.168.68.147:8787"
 
 to trigger the scheduled event.\
 Go back to the console to see what your worker has logged.\
 Update the Cron trigger in wrangler.toml (see https://developers.cloudflare.com/workers/wrangler/configuration/#triggers)
 
-Step 5: Publish project
+Step 5: Deployment
 -------------------------
 
-To publish worker, run:
+To deploy worker, run:
 
-    wrangler publish
+    wrangler deploy
 
 You can preview your Worker at <YOUR_WORKER>.<YOUR_SUBDOMAIN>.workers.dev.
+
+## Environment
+
+### Testnet
+
+Link: https://near-318-api.workers.dev/
+Admin: https://dash.cloudflare.com/235547dc36388aaba89a83cf4149e8b7/workers/subdomain
