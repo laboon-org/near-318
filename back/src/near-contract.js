@@ -5,13 +5,13 @@ const TGAS = 300000000000000;
 const NO_DEPOSIT = 0;
 const NO_ARGS = {};
 
-const contractAddress = "dev-1669276348138-46454457071538"
+const contractAddress = "<CONTRACT_ADDRESS>"
 const triggerContract = async() => {
   const myKeyStore = new keyStores.InMemoryKeyStore();
   const PRIVATE_KEY = "<PRIVATE_KEY>";
   const keyPair = KeyPair.fromString(PRIVATE_KEY);
   await myKeyStore.setKey("testnet", contractAddress, keyPair);
-  console.log(myKeyStore);
+  // console.log(myKeyStore);
 
   const connectionConfig = {
     networkId: "testnet",
