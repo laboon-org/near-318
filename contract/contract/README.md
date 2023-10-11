@@ -1,29 +1,16 @@
-# Hello NEAR Contract
+# NEAR Contract
 
-The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
+## Bingo-18
+
+The smart contract exposes X methods to in the NEAR network.
 
 ```ts
-@NearBindgen({})
-class HelloNear {
-  greeting: string = "Hello";
-
-  @view // This method is read-only and can be called for free
-  get_greeting(): string {
-    return this.greeting;
-  }
-
-  @call // This method changes the state, for which it cost gas
-  set_greeting({ greeting }: { greeting: string }): void {
-    // Record a log permanently to the blockchain!
-    near.log(`Saving greeting ${greeting}`);
-    this.greeting = greeting;
-  }
-}
+- Placeholder
 ```
 
 <br />
 
-# Quickstart
+## Getting Start
 
 1. Make sure you have installed [node.js](https://nodejs.org/en/download/package-manager/) >= 16.
 2. Install the [`NEAR CLI`](https://github.com/near/near-cli#setup)
@@ -46,30 +33,15 @@ cat ./neardev/dev-account
 
 <br />
 
-## 2. Retrieve the Greeting
+## 2. Function-1
 
-`get_greeting` is a read-only method (aka `view` method).
-
-`View` methods can be called for **free** by anyone, even people **without a NEAR account**!
-
-```bash
-# Use near-cli to get the greeting
-near view <dev-account> get_greeting
-```
+- Placeholder
 
 <br />
 
-## 3. Store a New Greeting
-`set_greeting` changes the contract's state, for which it is a `call` method.
+## 3. Function-2
 
-`Call` methods can only be invoked using a NEAR account, since the account needs to pay GAS for the transaction.
-
-```bash
-# Use near-cli to set a new greeting
-near call <dev-account> set_greeting '{"greeting":"howdy"}' --accountId <dev-account>
-```
-
-**Tip:** If you would like to call `set_greeting` using your own account, first login into NEAR using:
+- Placeholder
 
 ```bash
 # Use near-cli to login your NEAR account

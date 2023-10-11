@@ -1,25 +1,41 @@
-import { NearBindgen, near, call, view, initialize, NearPromise, bytes } from 'near-sdk-js';
+
+import { NearBindgen, near, call, view, initialize, bytes } from 'near-sdk-js';
 import { AccountId } from 'near-sdk-js/lib/types';
 
-import { PlayerStorage, Ticket, Round, WinnerStorage, Winner, Player, WinnerDetails } from './model';
+// -----------------------------------------------
+// Models
+// -----------------------------------------------
+import {
+  PlayerStorage,
+  Ticket,
+  Round,
+  WinnerStorage,
+  Winner,
+  Player,
+  WinnerDetails
+} from './model';
 
+// -----------------------------------------------
+// Config
+// -----------------------------------------------
 const FIVE_TGAS = BigInt("50000000000000");
 const NO_DEPOSIT = BigInt(0);
 const NO_ARGS = bytes(JSON.stringify({}));
 const STORAGE_COST: bigint = BigInt("1000000000000000000000000");
 const YOC_TO_NEAR_RATIO = BigInt("1000000000000000000000000");
 
+// -----------------------------------------------
+// Utilities Functions
+// -----------------------------------------------
 function get_current_date(): Date {
   const dateNano = near.blockTimestamp();
-  const dateMili = Number(dateNano / BigInt(1000000));
-  const currentDate = new Date(dateMili);
-  return currentDate;
+  const dateMali = Number(dateNano / BigInt(1000000));
+  return new Date(dateMali);
 }
 
 function get_fixed_date(): Date {
   const currentDate = get_current_date();
-  const fixedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), currentDate.getHours(), (currentDate.getMinutes() - (currentDate.getMinutes() % 10)), 0)
-  return fixedDate;
+  return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), currentDate.getHours(), (currentDate.getMinutes() - (currentDate.getMinutes() % 10)), 0);
 }
 
 function check_duplicate_value(target: number[], val: number): number {
@@ -30,7 +46,9 @@ function check_duplicate_value(target: number[], val: number): number {
   return count;
 }
 
-
+// -----------------------------------------------
+// CONTRACT: Bingo-318 - v1
+// -----------------------------------------------
 @NearBindgen({})
 class Bingo {
   playerStorage: PlayerStorage[] = [];
@@ -96,7 +114,7 @@ class Bingo {
   add_ticket({ chosenNumber }: { chosenNumber: number[]}): string {
     if (chosenNumber && chosenNumber.length > 0) {
       const currentPlayer: AccountId = near.predecessorAccountId();
-      const round = this.get_last_round().round;
+      const {round} = this.get_last_round();
       const betAmount = near.attachedDeposit().toString();
       const newTicket = new Ticket({chosenNumber, betAmount});
       const roundInfo = this.playerStorage.find(item => item.round === round);
@@ -112,7 +130,7 @@ class Bingo {
           const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
           roundInfo.players = [...roundInfo.players, newPlayer];
         }
-      } 
+      }
       // Storage doesnt have current round
       else {
         const newPlayer: Player = new Player({playerId: currentPlayer, tickets: [newTicket]});
@@ -120,8 +138,9 @@ class Bingo {
         this.playerStorage = [...this.playerStorage, newStore]
       }
       return (`Saved: Ticket of ${currentPlayer} on round ${round}: ${chosenNumber}`);
+    } else {
+      throw Error(`Doesn't have chosen number!`);
     }
-    else throw Error(`Doesn't have chosen number!`);
   }
 
   @call({privateFunction: true})
@@ -136,8 +155,9 @@ class Bingo {
         currentRound.result = [...currentRound.result, randomNumber];
       }
       return (`Set result of round #${currentRound.round}: ${currentRound.result}`);
+    } else {
+      return (`This round's result has been set!`)
     }
-    else return (`This round's result has been set!`)
   }
 
   @call({privateFunction: true})
@@ -163,14 +183,11 @@ class Bingo {
               if (ticket.chosenNumber[0] === 0) {
                 prizeAmount = (BigInt(ticket.betAmount) * BigInt(20)).toString();
               }
-              // This is normal type
-              else {
-                if (check_duplicate_value(selectedRound[0].result, ticket.chosenNumber[0]) === 3) {
-                  prizeAmount = (BigInt(ticket.betAmount) * BigInt(120)).toString();
-                }
+              else if (check_duplicate_value(selectedRound[0].result, ticket.chosenNumber[0]) === 3) {
+                prizeAmount = (BigInt(ticket.betAmount) * BigInt(120)).toString();
               }
             }
-          } 
+          }
           // If number quantity of ticket is 2
           else if (ticket.chosenNumber.length === 2) {
             if (check_duplicate_value(selectedRound[0].result, ticket.chosenNumber[0]) === 2) {
@@ -202,9 +219,9 @@ class Bingo {
         })
 
         const newWinner: Winner = new Winner({
-          winner: player.playerId, 
-          details: winnerDetails, 
-          prizeSum: prizeSum.toString(), 
+          winner: player.playerId,
+          details: winnerDetails,
+          prizeSum: prizeSum.toString(),
           isTransfered: false,
         })
         winners = [...winners, newWinner];
@@ -274,8 +291,9 @@ class Bingo {
     }
     else if (targetWinner[0].winners[0].isTransfered) {
       throw Error(`${player} has claimed prize!`);
+    } else {
+      throw Error(`Cannot transfer prize!`);
     }
-    else throw Error(`Cannot transfer prize!`);
   }
 
   @view({})
@@ -322,7 +340,7 @@ class Bingo {
         store = [...store, {round: item.round, players: [target]}]
       }
     });
-    
+
     return store;
   }
 

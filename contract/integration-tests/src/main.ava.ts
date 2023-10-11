@@ -30,15 +30,15 @@ test.afterEach.always(async (t) => {
   });
 });
 
-test('returns the default greeting', async (t) => {
-  const { contract } = t.context.accounts;
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Hello');
-});
+// test('returns the default greeting', async (t) => {
+//   const { contract } = t.context.accounts;
+//   const message: string = await contract.view('get_greeting', {});
+//   t.is(message, 'Hello');
+// });
 
-test('changes the message', async (t) => {
-  const { root, contract } = t.context.accounts;
-  await root.call(contract, 'set_greeting', { message: 'Howdy' });
-  const message: string = await contract.view('get_greeting', {});
-  t.is(message, 'Howdy');
-});
+// test('changes the message', async (t) => {
+//   const { root, contract } = t.context.accounts;
+//   await root.call(contract, 'set_greeting', { message: 'Howdy' });
+//   const message: string = await contract.view('get_greeting', {});
+//   t.is(message, 'Howdy');
+// });

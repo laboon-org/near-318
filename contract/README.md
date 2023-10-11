@@ -1,16 +1,15 @@
-NEAR-318 SMART CONTRACT
-==================
+# Near-318: Smart Contract
 
-This app was initialized with [create-near-app]
+- This app was initialized with [create-near-app]
+- With NextJS-v12
 
-Prequisites
-===========
+## Prerequisites
 
+```sh
     node v16.18.1
     npm v8.19.2
-
-Quick Start
-===========
+```
+## Getting Start
 
 If you haven't installed yarn, then run:
 
@@ -28,7 +27,7 @@ Build and deploy your contract to TestNet with a temporary dev account:
 Deploy
 ======
 
-Every smart contract in NEAR has its [own associated account][NEAR accounts]. 
+Every smart contract in NEAR has its [own associated account][NEAR accounts].
 When you run `yarn deploy`, your smart contract gets deployed to the live NEAR TestNet with a temporary dev account.
 When you're ready to make it permanent, here's how:
 
