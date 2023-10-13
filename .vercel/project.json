@@ -1,0 +1,15 @@
+{
+  "projectId": "prj_A5k8Bf6M1X3C70gC3UEF19FNzoPG",
+  "orgId": "team_U0v0fONJxZbji41kcujRp5Oo",
+  "settings": {
+    "createdAt": 1697198482308,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": "/front",
+    "directoryListing": false,
+    "nodeVersion": "18.x"
+  }
+}
