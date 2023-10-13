@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { ReactNode } from "react";
+import ReactDOM from "react-dom";
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode;
 }
 
-export default function ModalPortal({children}: Props) {
-  return ReactDOM.createPortal(children, document.getElementById('app-modal')!)
+export default function ModalPortal({ children }: Props) {
+  return ReactDOM.createPortal(children, document.getElementById("app-modal")!);
 }
