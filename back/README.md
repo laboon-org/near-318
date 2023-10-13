@@ -21,7 +21,7 @@ Step 1: Install dependencies
 
 Install all required dependencies by running:
 
-    yarn install
+    yarn
 
 Step 2: Install the Workers CLI
 -------------------------------
@@ -73,5 +73,13 @@ You can preview your Worker at <YOUR_WORKER>.<YOUR_SUBDOMAIN>.workers.dev.
 
 ### Testnet
 
-Link: https://test-v1.near-318-api.workers.dev/
-Admin: https://dash.cloudflare.com/235547dc36388aaba89a83cf4149e8b7/workers/subdomain
+Admin:
+
+    https://dash.cloudflare.com/235547dc36388aaba89a83cf4149e8b7/workers/subdomain
+
+Link-API:
+    https://test-v1.near-318.workers.dev/
+
+Cron Testing
+
+    curl "http://localhost:8787/__scheduled?cron=0+1+2+3+4"

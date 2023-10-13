@@ -12,9 +12,15 @@
 
 import triggerContract from './near-contract'
 
+export const Env = {
+  PRIVATE_KEY: "string",
+  CONTRACT_ADDRESS: "string",
+  NEAR_NETWORK: "string",
+};
+
 export default {
-  async scheduled(event, env, ctx) {
-    ctx.waitUntil(triggerContract());
+  async scheduled(event, env = Env, ctx) {
+    ctx.waitUntil(triggerContract(env));
   },
   async fetch(request) {
     const html = `<!DOCTYPE html>

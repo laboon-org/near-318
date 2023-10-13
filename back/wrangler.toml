@@ -6,3 +6,8 @@ send_metrics = true
 
 [triggers]
 crons = [ "0,10,20,30,40,50 * * * *" ]
+
+[vars]
+PRIVATE_KEY = "x"
+CONTRACT_ADDRESS = "dev-1669276348138-46454457071538"
+NEAR_NETWORK = "testnet"
