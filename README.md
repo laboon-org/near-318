@@ -4,25 +4,25 @@
 
 ## System Guideline
 
-1. Frontend [Frontend] (front/README.md)
-2. Backend [Backend] (back/README.md)
-3. Contract [Contract] (contract/README.md)
+1. [Frontend](/front/README.md)
+2. [Backend](/back/README.md)
+3. [Contract](/contract/README.md)
 
 ## Submission
 
 ### A. Project Description
 
 - Name: Near-318
-- Description: Bring FUNd to you with a LOT from Bingo-318
+- Description: Bring FUNd to you with a SMART LOT from Bingo-318, Keno, and more
 - MVP Link: https://near-318.vercel.app/
 
 #### Inspiration
 
-- Bingo-318: From Vietlot - https://vietlott.vn/en/choi/bingo/gioi-thieu-san-pham-bingo18
+- Bingo-18: From Vietlot
 
 #### A1 - Video Presentation
 
-- (Q1-2023) Link: https://youtu.be/dST2zzni_T0
+- Link: https://youtu.be/dST2zzni_T0
 
 #### A2 - User Manual
 
@@ -100,20 +100,19 @@
 - We are proud to finished creating an innovative dApp LOT on the chain.
 - The MVP doesn't get plenty of time, to make it perfect, but it works.
 
-### G. What we learned
-
-- We have learned mainly interacting with Smart Contract.
-- And also how to deploy the Contract on NEAR Network.
-
-### H. What's next (Milestones)
+### G. Timeline
 
 - [x] Q1-2023: First Implementation of MVP (Bingo-18)
-- [ ] Q4-2023:
+- [ ] Q4-2023 (Oct)
 -> Implement Near BOS
--> Complete remaining modes of Bingo-18 to bring 38 types live, roll-out to mainnet.
--> Support Cross-chain (eg: Chain-Link (VRF)) and multiple wallet.
+-> Roll-out to mainnet
+- [ ] Q4-2023 (Nov)
+-> Complete modes of Bingo-38
+- [ ] Q4-2023 (Dec)
+-> Support Keno and other LOT
 - [ ] Q1-2024:
--> Support others lottery mode, 2-digits type as Keno.
--> Publish mobile applications.
+-> Support Cross-Chain
+-> Publish Native Mobile
 - [ ] Q2-2024:
--> Support stable-coin, fiat currency.
+-> Support Stable Coin
+-> Support Fiat Currency
