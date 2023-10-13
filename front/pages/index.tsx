@@ -18,8 +18,8 @@ const Home = observer(() => {
       pageStore.setPage('Home');
     }
     return () => { isMounted = false };
-  }, [])
-  
+  }, [pageStore])
+
   return (
     <>
       <Head>

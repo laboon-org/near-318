@@ -14,7 +14,7 @@ const Buy = observer(() => {
       pageStore.setPage('Buy');
     }
     return () => { isMounted = false };
-  }, [])
+  }, [pageStore])
 
   return (
     <>

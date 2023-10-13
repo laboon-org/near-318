@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from "react";
 import { useConditionStore, useRatioStore, useRoundStore, useTimerStore, useWalletStore } from '../../providers/RootStoreProvider';
 import { WalletStore } from '../../stores/WalletStore';
 import { contractAddress } from '../../ultilities/contract_address';
@@ -22,68 +22,82 @@ const Layout = observer(({children}: Props) => {
   const ratioStore = useRatioStore();
   const timerStore = useTimerStore();
   const conditionStore = useConditionStore();
-  
+
   // Check if user is signed in
-  const checkSignedIn = async() => {
+  const checkSignedIn = useCallback(async () => {
     setLoading(true);
     try {
       await walletStore.startUp();
     } catch (error) {
-      console.error('[Error] Start up wallet: ', error)
+      console.error("[Error] Start up wallet: ", error);
     }
     setLoading(false);
-  }
+  }, [walletStore]); // add dependencies here
 
   // Load ratio between NEAR and USD
-  const loadNearRatio = async() => {
+  const loadNearRatio = useCallback(async () => {
     setLoading(true);
     try {
       await ratioStore.fetchRatio();
     } catch (error) {
-      console.error('[Error] Load NEAR Ratio: ', error)
+      console.error("[Error] Load NEAR Ratio: ", error);
     }
     setLoading(false);
-  }
+  }, [ratioStore]); // add dependencies here
 
   // Load round from SC
-  const loadRoundWithoutLogin = async() => {
-    const wallet = await viewOnlyWallet()
+  const loadRoundWithoutLogin = useCallback(async () => {
+    const wallet = await viewOnlyWallet();
     setLoading(true);
     try {
       await roundStore.fetchAllRounds(contractAddress, wallet);
     } catch (error) {
-      console.error('[Error] Get rounds: ', error)
+      console.error("[Error] Get rounds: ", error);
     }
     setLoading(false);
-  }
+  }, [roundStore]); // add dependencies here
 
   // Countdown time
-  const timerCountdown = (): boolean => {
-    const remainingTime = new Date(roundStore.rounds[roundStore.rounds.length - 1].endTime).getTime() - new Date(Date.now()).getTime();
+  const timerCountdown = useCallback(() => {
+    const remainingTime =
+      new Date(
+        roundStore.rounds[roundStore.rounds.length - 1].endTime
+      ).getTime() - new Date(Date.now()).getTime();
     if (remainingTime > 1000) {
       const seconds = Math.floor((remainingTime / 1000) % 60);
       const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
-      const fixedMinutes = minutes.toString().length > 1 ? minutes.toString() : `0${minutes.toString()}`
-      const fixedSeconds = seconds.toString().length > 1 ? seconds.toString() : `0${seconds.toString()}`
-      if (timerStore.minutes !== fixedMinutes || timerStore.seconds !== fixedSeconds) {
-        timerStore.setTimer({minutes: fixedMinutes, seconds: fixedSeconds})
+      const fixedMinutes =
+        minutes.toString().length > 1
+          ? minutes.toString()
+          : `0${minutes.toString()}`;
+      const fixedSeconds =
+        seconds.toString().length > 1
+          ? seconds.toString()
+          : `0${seconds.toString()}`;
+      if (
+        timerStore.minutes !== fixedMinutes ||
+        timerStore.seconds !== fixedSeconds
+      ) {
+        timerStore.setTimer({ minutes: fixedMinutes, seconds: fixedSeconds });
       }
       return true;
-    }
-    else {
-      timerStore.setTimer({minutes: '00', seconds: '00'});
+    } else {
+      timerStore.setTimer({ minutes: "00", seconds: "00" });
       return false;
     }
-  }
+  }, [roundStore, timerStore]); // add dependencies here
 
   // Fetch a new round
-  const fetchNewRound = async() => {
-    const wallet = await viewOnlyWallet()
-    const fetchResult = await roundStore.fetchAllRounds(contractAddress, wallet);
+  const fetchNewRound = useCallback(async () => {
+    const wallet = await viewOnlyWallet();
+    const fetchResult = await roundStore.fetchAllRounds(
+      contractAddress,
+      wallet
+    );
     if (fetchResult) {
       conditionStore.setAvailableToBuyTicket(true);
     }
-  }
+  }, [roundStore, conditionStore]); // add dependencies here
 
   // Countdown time interval
   useEffect(() => {
@@ -91,35 +105,35 @@ const Layout = observer(({children}: Props) => {
     if (roundStore.rounds.length > 0) {
       interval = setInterval(() => {
         const countdownAvailable = timerCountdown();
-        if (!countdownAvailable) { 
+        if (!countdownAvailable) {
           clearInterval(interval);
         }
-      }, 100)
+      }, 100);
     }
 
     return () => clearInterval(interval);
-  }, [roundStore.rounds])
+  }, [roundStore.rounds, timerCountdown]);
 
   // Trigger methods base on timer.
   useEffect(() => {
     let interval: NodeJS.Timer | undefined;
-    
+
     // In the last minute
-    if (timerStore.minutes === '00') {
+    if (timerStore.minutes === "00") {
       // Set condition to prevent user from buying more ticket
-      if(conditionStore.availableToBuyTicket) {
+      if (conditionStore.availableToBuyTicket) {
         conditionStore.setAvailableToBuyTicket(false);
       }
       // When time ran out, try to fetch new round
-      if (timerStore.seconds === '00') {
+      if (timerStore.seconds === "00") {
         interval = setInterval(() => {
           fetchNewRound();
-        }, 2000)
+        }, 2000);
       }
     }
 
     return () => clearInterval(interval);
-  }, [timerStore.minutes, timerStore.seconds])
+  }, [conditionStore, fetchNewRound, timerStore.minutes, timerStore.seconds]);
 
   // Check user sign in
   useEffect(() => {
@@ -134,8 +148,10 @@ const Layout = observer(({children}: Props) => {
       }
     }
 
-    return () => {isMounted = false};
-  }, [])
+    return () => {
+      isMounted = false;
+    };
+  }, [checkSignedIn, router]);
 
   // Load Round + Price Ratio
   useEffect(() => {
@@ -145,14 +161,17 @@ const Layout = observer(({children}: Props) => {
       loadNearRatio();
     }
 
-    return () => {isMounted = false};
-  }, [walletStore.isSignedIn]);
+    return () => {
+      isMounted = false;
+    };
+  }, [loadNearRatio, loadRoundWithoutLogin, walletStore.isSignedIn]);
 
-  if (loading) return (
-    <div className='full-screen-loading'>
-      <LoadingSpin message='NOW LOADING'/>
-    </div>
-  )
+  if (loading)
+    return (
+      <div className="full-screen-loading">
+        <LoadingSpin message="NOW LOADING" />
+      </div>
+    );
 
   return (
     <div className={`layout`}>
@@ -168,7 +187,7 @@ const Layout = observer(({children}: Props) => {
         <MainFooter />
       </footer>
     </div>
-  )
+  );
 });
 
 export default Layout;

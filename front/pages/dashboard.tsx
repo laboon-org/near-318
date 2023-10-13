@@ -14,7 +14,7 @@ const Dashboard = observer(() => {
       pageStore.setPage('Dashboard');
     }
     return () => { isMounted = false };
-  }, [])
+  }, [pageStore])
 
   return (
     <>

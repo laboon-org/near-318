@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from "react";
 import { IoIosArrowForward } from 'react-icons/io'
 
 import styles from './_History.module.scss'
@@ -21,14 +21,20 @@ export default function HistoryUser() {
   const [loadingClaimPrize, setLoadingClaimPrize] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getWinnerListByPlayer = async(): Promise<void> => {
+  const getWinnerListByPlayer = useCallback(async (): Promise<void> => {
     setLoading(true);
     if (contractAddress && walletStore.accountId) {
-      const contract = new Contract({contractId: contractAddress, walletToUse: walletStore});
-      setWinnerList(await contract.getWinnersByPlayer({player: walletStore.accountId}));
+      const contract = new Contract({
+        contractId: contractAddress,
+        walletToUse: walletStore,
+      });
+      setWinnerList(
+        await contract.getWinnersByPlayer({ player: walletStore.accountId })
+      );
     }
     setLoading(false);
-  }
+  }, [walletStore]);
+
 
   const getRoundDate = (round: number): string => {
     const targetRound = roundStore.rounds.find(item => item.round === round)
@@ -76,14 +82,14 @@ export default function HistoryUser() {
     if (walletStore.isSignedIn) {
       getWinnerListByPlayer();
     }
-  }, [walletStore.isSignedIn, walletStore.accountId])
+  }, [walletStore.isSignedIn, walletStore.accountId, getWinnerListByPlayer])
 
   return (
     <div className={`${styles['history']} ${styles['history-user']} loading-container`}>
       {toggleHistoryModal &&
         <ModalWrap setToggleModal={setToggleHistoryModal}>
           <RoundHistoryM
-            setToggleModal={setToggleHistoryModal} 
+            setToggleModal={setToggleHistoryModal}
             winner={targetWinnerRound}
             loading={loadingClaimPrize}
             handleClaimPrize={handleClaimPrize}
@@ -94,7 +100,7 @@ export default function HistoryUser() {
         <LoadingSpin hideContent={true}/>
       )}
       <div className={`${styles['round-content']}`}>
-        {walletStore.isSignedIn 
+        {walletStore.isSignedIn
           ? (
           winnerList.length > 0
             ? (
@@ -113,7 +119,7 @@ export default function HistoryUser() {
                     <div className={`${styles['navigate']}`}></div>
                   </div>
                 </div>
-                
+
                 <div className={`${styles['center-part']}`}>
                   {winnerList.map((item, index) => (
                     <div key={index} className={`${styles['history-info']}`}>
@@ -132,7 +138,7 @@ export default function HistoryUser() {
                         </button>
                       </div>
                     </div>
-                  ))} 
+                  ))}
                 </div>
               </>
             )
