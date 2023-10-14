@@ -1,66 +1,29 @@
 @import '../../ultilities/variables';
 
 .main-footer-wrap {
-  background-color: $primaryColor;
-  min-height: 168px;
-
   .container {
-    margin: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
     .logo {
       width: 200px;
     }
-
     .item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 0.75rem;
-
       .network-info {
-        margin: 0.8rem 0.625rem;
-
         .network-logo {
-          width: 36px;
         }
-
         p {
-          font-size: 1rem;
-          color: $primaryTextColor;
-          font-weight: 300;
-          font-size: 0.8rem;
         }
 
         button {
-          padding: 0.8rem 1.2rem;
-          border-radius: $primaryBorderRadius;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
-
           small {
-            font-size: 1.1rem;
           }
-
           i {
-            margin-left: 0.5rem;
           }
         }
       }
     }
     .laboon {
       .laboon-info {
-        display: flex;
-
         small {
-          color: $primaryTextColor;
-          font-weight: 300;
-          margin-left: 1rem;
-          font-size: 12px;
+
         }
       }
 
