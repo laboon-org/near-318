@@ -105,9 +105,9 @@
 - [x] Q1-2023: First Implementation of MVP (Bingo-18)
 - [ ] Q4-2023 (Oct)
 -> Implement Near BOS
--> Roll-out to mainnet
 - [ ] Q4-2023 (Nov)
--> Complete modes of Bingo-38
+-> Complete 38 modes of Bingo
+-> Roll-out to mainnet
 - [ ] Q4-2023 (Dec)
 -> Support Keno and other LOT
 - [ ] Q1-2024:
