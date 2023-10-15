@@ -72,11 +72,9 @@ https://near.org/flags
 ### NEAR BOS: Components
 
 - Radix UI: https://www.radix-ui.com/primitives/docs/overview/introduction
-- Folder Path: /bos/**
 
 > Common
 
-    - [MainFooter] https://test.near.org/hle85.testnet/widget/src.n318-main-footer
-    - [Header] x
+    https://test.near.org/hle85.testnet/widget/components.Footers.MainFooter
 
 > Majority
